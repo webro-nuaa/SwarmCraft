@@ -8,7 +8,7 @@ export ROS_DOMAIN_ID=0
 export FASTRTPS_DEFAULT_PROFILES_FILE=/app/fastdds-udp.xml
 
 echo "============================================"
-echo " UAV Bridge v3.0 (XRCE-DDS)"
+echo " SwarmCraft Bridge v1.0 (XRCE-DDS)"
 echo " Drones: ${DRONE_COUNT}"
 echo "============================================"
 

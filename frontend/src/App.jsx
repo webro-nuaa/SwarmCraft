@@ -146,7 +146,7 @@ export default function App() {
   return (
     <div className="app">
       <header className="topbar">
-        <h1>UAV 集群控制系统</h1>
+        <h1>SwarmCraft</h1>
         <nav>
           <button
             className={viewMode === 'monitor' ? 'active' : ''}

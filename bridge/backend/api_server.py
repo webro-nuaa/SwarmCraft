@@ -169,7 +169,7 @@ async def lifespan(app: FastAPI):
         rclpy.shutdown()
 
 
-app = FastAPI(title="UAV Bridge API", version="3.0", lifespan=lifespan)
+app = FastAPI(title="SwarmCraft API", version="1.0.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
