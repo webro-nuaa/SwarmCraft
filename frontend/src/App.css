@@ -1,0 +1,160 @@
+/* ─── Layout ─── */
+.app { display: flex; flex-direction: column; height: 100vh; background: #0a0e17; color: #e0e0e0; }
+
+.topbar {
+  display: flex; align-items: center; gap: 24px; padding: 8px 20px;
+  background: #111827; border-bottom: 1px solid #1f2937; z-index: 1000;
+}
+.topbar h1 { font-size: 18px; color: #60a5fa; white-space: nowrap; }
+.topbar nav { display: flex; gap: 4px; }
+.topbar nav button {
+  padding: 6px 16px; border: none; border-radius: 6px; cursor: pointer;
+  background: transparent; color: #9ca3af; font-size: 13px;
+}
+.topbar nav button.active { background: #1d4ed8; color: #fff; }
+.ws-status { margin-left: auto; font-size: 12px; padding: 4px 12px; border-radius: 12px; }
+.ws-status.connected { background: #065f46; color: #6ee7b7; }
+.ws-status.disconnected, .ws-status.error { background: #7f1d1d; color: #fca5a5; }
+.ws-status.connecting { background: #78350f; color: #fcd34d; }
+
+.main { display: flex; flex: 1; overflow: hidden; }
+
+/* ─── Sidebar ─── */
+.sidebar {
+  width: 320px; min-width: 320px; overflow-y: auto;
+  background: #111827; border-right: 1px solid #1f2937; padding: 12px;
+}
+.sidebar h3 { font-size: 14px; color: #9ca3af; margin-bottom: 8px; }
+
+/* ─── Drone Panel ─── */
+.drone-panel {
+  padding: 10px 12px; margin-bottom: 8px; border-radius: 8px;
+  background: #1a2235; border: 1px solid #1f2937; cursor: pointer; transition: all 0.2s;
+}
+.drone-panel:hover { border-color: #3b82f6; }
+.drone-panel.selected { border-color: #60a5fa; background: #1e3a5f; }
+.drone-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.drone-header strong { font-size: 14px; }
+.drone-header .mode { margin-left: auto; font-size: 11px; padding: 2px 8px; border-radius: 10px; background: #374151; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; }
+.status-dot.armed { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
+.status-dot.disarmed { background: #6b7280; }
+.drone-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; }
+.stat label { font-size: 10px; color: #6b7280; display: block; }
+.stat span { font-size: 13px; }
+
+/* ─── Map ─── */
+.content { flex: 1; position: relative; overflow: hidden; }
+.map-container { width: 100%; height: 100%; z-index: 1; }
+.drone-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: #f59e0b; border: 2px solid #fff;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
+}
+.drone-dot.armed { background: #22c55e; box-shadow: 0 0 8px #22c55e; }
+.drone-dot.selected {
+  width: 20px; height: 20px;
+  background: #f97316 !important;
+  box-shadow: 0 0 10px #f97316;
+}
+
+/* ─── Panels ─── */
+.panel {
+  position: absolute; bottom: 0; left: 0; right: 0; max-height: 40%;
+  background: #111827ec; border-top: 1px solid #1f2937; padding: 16px 20px;
+  overflow-y: auto; z-index: 500; backdrop-filter: blur(8px);
+}
+.panel-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.panel-header h3 { font-size: 15px; color: #e0e0e0; }
+
+/* ─── Buttons ─── */
+.btn { padding: 6px 14px; border: 1px solid #374151; border-radius: 6px; cursor: pointer; background: #1f2937; color: #e0e0e0; font-size: 12px; }
+.btn:hover { background: #374151; }
+.btn.primary { background: #1d4ed8; border-color: #1d4ed8; color: #fff; }
+.btn.primary:hover { background: #1e40af; }
+.btn.danger { background: #991b1b; border-color: #991b1b; color: #fff; }
+.btn.small { padding: 3px 8px; font-size: 11px; }
+
+/* ─── Forms ─── */
+.form-group { margin-bottom: 10px; }
+.form-group label { display: block; font-size: 12px; color: #9ca3af; margin-bottom: 4px; }
+.form-group input, .form-group select {
+  width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #374151;
+  background: #1a2235; color: #e0e0e0; font-size: 13px;
+}
+
+/* ─── Waypoints ─── */
+.waypoints-list { margin-bottom: 12px; }
+.waypoints-list > label { font-size: 12px; color: #9ca3af; display: block; margin-bottom: 6px; }
+.waypoint-row { display: flex; gap: 6px; margin-bottom: 4px; align-items: center; }
+.waypoint-row span { color: #6b7280; font-size: 12px; width: 24px; }
+.waypoint-row input { flex: 1; width: 0; padding: 4px 6px; border-radius: 4px; border: 1px solid #374151; background: #1a2235; color: #e0e0e0; font-size: 12px; }
+
+/* ─── Mission List ─── */
+.mission-list { margin-top: 12px; }
+.mission-item { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border: 1px solid #1f2937; border-radius: 6px; margin-bottom: 6px; }
+.mission-info { flex: 1; }
+.mission-info strong { font-size: 13px; display: block; }
+.status-tag { font-size: 11px; padding: 2px 8px; border-radius: 10px; }
+.status-tag.status-0 { background: #374151; color: #9ca3af; }
+.status-tag.status-1 { background: #1d4ed8; color: #93c5fd; }
+.status-tag.status-2 { background: #065f46; color: #6ee7b7; }
+.status-tag.status-3 { background: #7f1d1d; color: #fca5a5; }
+
+/* ─── Formation ─── */
+.formation-panel { }
+.drone-checkboxes { display: flex; flex-wrap: wrap; gap: 8px; }
+.drone-check { display: flex; align-items: center; gap: 4px; font-size: 12px; cursor: pointer; }
+
+/* ─── Drone tabs (per-drone waypoints) ─── */
+.drone-tabs { margin-bottom: 12px; }
+.drone-tabs > label { font-size: 12px; color: #9ca3af; display: block; margin-bottom: 6px; }
+.tabs-row { display: flex; gap: 4px; flex-wrap: wrap; }
+.tab-btn {
+  padding: 6px 12px; border: 1px solid #374151; border-radius: 6px;
+  background: #1a2235; color: #9ca3af; cursor: pointer;
+  font-size: 12px; transition: all 0.15s; position: relative;
+}
+.tab-btn:hover { border-color: #60a5fa; color: #e0e0e0; }
+.tab-btn.active { background: #1d4ed8; border-color: #2563eb; color: #fff; }
+.wp-badge {
+  display: inline-block; background: #10b981; color: #fff; font-size: 10px;
+  border-radius: 10px; padding: 1px 6px; margin-left: 4px; min-width: 14px; text-align: center;
+}
+
+/* ─── Mode toggle ─── */
+.mode-toggle { display: flex; gap: 4px; }
+.toggle-btn {
+  flex: 1; padding: 8px 12px; border: 1px solid #374151; border-radius: 6px;
+  background: #1a2235; color: #9ca3af; cursor: pointer; font-size: 13px;
+  transition: all 0.15s;
+}
+.toggle-btn:hover { border-color: #60a5fa; color: #e0e0e0; }
+.toggle-btn.active { background: #1d4ed8; border-color: #2563eb; color: #fff; font-weight: 600; }
+
+/* ─── Control Panel ─── */
+.control-panel {
+  margin-top: 12px; padding: 12px; border-top: 1px solid #1f2937;
+  background: #0f172a; border-radius: 8px;
+}
+.control-panel h4 { font-size: 13px; color: #60a5fa; margin-bottom: 10px; }
+.control-row { display: flex; gap: 6px; margin-bottom: 8px; }
+.btn.ctl { flex: 1; padding: 10px 6px; border: 1px solid #374151; border-radius: 6px; cursor: pointer; background: #1f2937; color: #e0e0e0; font-size: 13px; font-weight: 600; transition: all 0.15s; }
+.btn.ctl:hover { background: #374151; border-color: #60a5fa; }
+.btn.ctl.armed { background: #991b1b; border-color: #dc2626; }
+.btn.ctl.primary { background: #1d4ed8; border-color: #2563eb; }
+.control-status { margin-top: 8px; padding: 6px 10px; background: #1a2235; border-radius: 4px; font-size: 11px; color: #9ca3af; word-break: break-all; }
+
+/* ─── Waypoint Map Markers ─── */
+.waypoint-marker {
+  width: 24px; height: 24px; line-height: 24px; text-align: center;
+  background: #ff6600; color: #fff; border-radius: 50%; font-size: 12px;
+  font-weight: 700; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+.hint { color: #f59e0b; font-size: 12px; padding: 6px 0; }
+.wp-coord { color: #9ca3af; font-size: 11px; min-width: 60px; }
+.wp-gps { color: #6b7280; font-size: 10px; margin-left: auto; }
+
+/* ─── Misc ─── */
+.empty { color: #6b7280; font-size: 13px; text-align: center; padding: 24px; }
+.armed-text { color: #22c55e; }

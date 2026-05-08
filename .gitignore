@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+*.egg
+
+# Node / Vite
+node_modules/
+dist/
+
+# Docker
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+*.pyc
+
+# Project temp files
+.claude/
+session_ids
+REFACTOR_STATUS.md
+TESTING.md
+
+# Unrelated
+aerial-autonomy-stack/
+中期报告.pdf

@@ -1,0 +1,96 @@
+services:
+  # ==================== 仿真层 ====================
+  sitl:
+    build: ./simulation
+    image: uav-sitl:latest
+    container_name: uav-sitl
+    network_mode: host
+    environment:
+      - DISPLAY=${DISPLAY}
+      - DRONE_COUNT=${DRONE_COUNT:-4}
+      - PX4_HOME_LAT=${PX4_HOME_LAT:-34.23}
+      - PX4_HOME_LON=${PX4_HOME_LON:-108.95}
+      - PX4_HOME_ALT=${PX4_HOME_ALT:-488.0}
+      - HEADLESS=${HEADLESS:-0}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:ro
+    stdin_open: true
+    tty: true
+    stop_signal: SIGINT
+    stop_grace_period: 15s
+
+  # ==================== XRCE-DDS Agent ====================
+  agent:
+    image: microros/micro-ros-agent:humble
+    container_name: uav-agent
+    network_mode: host
+    command: udp4 -p 8888
+    restart: unless-stopped
+    environment:
+      - FASTRTPS_DEFAULT_PROFILES_FILE=/app/fastdds-udp.xml
+    volumes:
+      - ./bridge/fastdds-udp.xml:/app/fastdds-udp.xml:ro
+
+  # ==================== 通信 + 后端 ====================
+  bridge:
+    build: ./bridge
+    image: uav-bridge:latest
+    container_name: uav-bridge
+    network_mode: host
+    depends_on:
+      sitl:
+        condition: service_started
+      agent:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+    environment:
+      - DRONE_COUNT=${DRONE_COUNT:-4}
+      - DB_HOST=127.0.0.1
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASS=${DB_ROOT_PASS:-uav123456}
+      - DB_NAME=uav_swarm
+      - PX4_HOME_LAT=${PX4_HOME_LAT:-34.23}
+      - PX4_HOME_LON=${PX4_HOME_LON:-108.95}
+      - PX4_HOME_ALT=${PX4_HOME_ALT:-488.0}
+    stdin_open: true
+    tty: true
+    stop_signal: SIGINT
+    stop_grace_period: 10s
+
+  # ==================== 数据库 ====================
+  mysql:
+    image: mysql:8.0
+    container_name: uav-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS:-uav123456}
+      MYSQL_DATABASE: uav_swarm
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      retries: 10
+
+  # ==================== 前端 ====================
+  frontend:
+    build: ./frontend
+    image: uav-frontend:latest
+    container_name: uav-frontend
+    depends_on:
+      - bridge
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_WS_URL=ws://localhost:9090
+      - VITE_API_URL=http://localhost:8000
+      - VITE_DRONE_COUNT=${DRONE_COUNT:-4}
+    stdin_open: true
+    tty: true
+
+volumes:
+  mysql_data:
