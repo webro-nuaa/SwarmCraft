@@ -37,8 +37,8 @@ MySQL 8.0 (数据持久化)
 
 ```bash
 # 1. 克隆项目
-git clone <repo-url> UAV
-cd UAV
+git clone https://github.com/webro-nuaa/SwarmCraft.git
+cd SwarmCraft
 
 # 2. 构建并启动所有服务（首次构建约 20-30 分钟）
 docker compose up -d --build
