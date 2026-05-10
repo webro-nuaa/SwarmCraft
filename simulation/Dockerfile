@@ -1,7 +1,7 @@
-ARG REGISTRY_MIRROR=docker.io/
+ARG REGISTRY_MIRROR=docker.1ms.run/
 FROM ${REGISTRY_MIRROR}px4io/px4-dev-simulation-focal:latest
 
-ARG GITHUB_MIRROR=https://github.com/
+ARG GITHUB_MIRROR=https://mirror.ghproxy.com/https://github.com/
 
 # 克隆PX4源码（如果镜像中没有）
 WORKDIR /root
