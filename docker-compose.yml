@@ -3,7 +3,11 @@ name: swarmcraft
 services:
   # ==================== 仿真层 ====================
   sitl:
-    build: ./simulation
+    build:
+      context: ./simulation
+      args:
+        - REGISTRY_MIRROR
+        - GITHUB_MIRROR
     image: uav-sitl:latest
     container_name: uav-sitl
     network_mode: host
@@ -23,7 +27,7 @@ services:
 
   # ==================== XRCE-DDS Agent ====================
   agent:
-    image: microros/micro-ros-agent:humble
+    image: ${REGISTRY_MIRROR:-docker.io/}microros/micro-ros-agent:humble
     container_name: uav-agent
     network_mode: host
     command: udp4 -p 8888
@@ -35,7 +39,10 @@ services:
 
   # ==================== 通信 + 后端 ====================
   bridge:
-    build: ./bridge
+    build:
+      context: ./bridge
+      args:
+        - REGISTRY_MIRROR
     image: uav-bridge:latest
     container_name: uav-bridge
     network_mode: host
@@ -63,7 +70,7 @@ services:
 
   # ==================== 数据库 ====================
   mysql:
-    image: mysql:8.0
+    image: ${REGISTRY_MIRROR:-docker.io/}mysql:8.0
     container_name: uav-mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS:-uav123456}
@@ -80,7 +87,10 @@ services:
 
   # ==================== 前端 ====================
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        - REGISTRY_MIRROR
     image: uav-frontend:latest
     container_name: uav-frontend
     depends_on:

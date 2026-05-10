@@ -1,4 +1,5 @@
-FROM node:20-alpine
+ARG REGISTRY_MIRROR=docker.io/
+FROM ${REGISTRY_MIRROR}node:20-alpine
 
 WORKDIR /app
 COPY package.json package-lock.json* ./

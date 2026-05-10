@@ -1,4 +1,5 @@
-FROM osrf/ros:humble-desktop-full
+ARG REGISTRY_MIRROR=docker.io/
+FROM ${REGISTRY_MIRROR}osrf/ros:humble-desktop-full
 
 ENV DEBIAN_FRONTEND=noninteractive
 

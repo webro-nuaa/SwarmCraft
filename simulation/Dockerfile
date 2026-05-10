@@ -1,9 +1,12 @@
-FROM px4io/px4-dev-simulation-focal:latest
+ARG REGISTRY_MIRROR=docker.io/
+FROM ${REGISTRY_MIRROR}px4io/px4-dev-simulation-focal:latest
+
+ARG GITHUB_MIRROR=https://github.com/
 
 # 克隆PX4源码（如果镜像中没有）
 WORKDIR /root
 RUN if [ ! -d "PX4-Autopilot" ]; then \
-    git clone https://github.com/PX4/PX4-Autopilot.git --recursive --depth 1 --branch v1.14.3; \
+    git clone ${GITHUB_MIRROR}PX4/PX4-Autopilot.git --recursive --depth 1 --branch v1.14.3; \
     fi
 
 WORKDIR /root/PX4-Autopilot
