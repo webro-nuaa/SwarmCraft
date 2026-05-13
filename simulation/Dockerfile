@@ -1,4 +1,4 @@
-ARG REGISTRY_MIRROR=docker.m.daocloud.io/
+ARG REGISTRY_MIRROR=docker.1ms.run/
 FROM ${REGISTRY_MIRROR}px4io/px4-dev-simulation-focal:latest
 
 ARG GITHUB_MIRROR=https://gh.idayer.com/https://github.com/

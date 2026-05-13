@@ -1,4 +1,4 @@
-ARG REGISTRY_MIRROR=docker.m.daocloud.io/
+ARG REGISTRY_MIRROR=docker.1ms.run/
 FROM ${REGISTRY_MIRROR}osrf/ros:humble-desktop-full
 
 ENV DEBIAN_FRONTEND=noninteractive
