@@ -27,7 +27,7 @@ services:
 
   # ==================== XRCE-DDS Agent ====================
   agent:
-    image: ${REGISTRY_MIRROR:-docker.1ms.run/}microros/micro-ros-agent:humble
+    image: ${REGISTRY_MIRROR:-docker.m.daocloud.io/}microros/micro-ros-agent:humble
     container_name: uav-agent
     network_mode: host
     command: udp4 -p 8888
@@ -70,7 +70,7 @@ services:
 
   # ==================== 数据库 ====================
   mysql:
-    image: ${REGISTRY_MIRROR:-docker.1ms.run/}mysql:8.0
+    image: ${REGISTRY_MIRROR:-docker.m.daocloud.io/}mysql:8.0
     container_name: uav-mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS:-uav123456}
